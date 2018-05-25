@@ -9,7 +9,7 @@
 	},
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
-	"appid": "touristappid",
+	"appid": "wxa65b857e40095d0e",
 	"projectname": "hook%E9%87%91%E6%95%B0%E6%8D%AE",
 	"condition": {
 		"search": {

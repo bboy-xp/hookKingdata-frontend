@@ -1,43 +1,52 @@
 <template>
   <div class="container">
+    <div class="title">{{log.name}}</div>
     <div class="componentBox" v-for="(e, fieldKey, fieldIndex) in log.fields" :key="fieldIndex">
       <!-- <div>{{e.type}}</div> -->
       <div v-if="e.type === 'single_line_text'">
-        <div>{{e.label}}</div>
-        <input class="inputStyle" auto-focus/>
+        <div class="inputQuestion">· {{e.label}}</div>
+        <input class="inputBox" auto-focus/>
       </div>
       <div v-else-if="e.type === 'single_choice'">
-        <div>单选框</div>
+        <!-- <div>单选框</div> -->
+        <div class="inputQuestion">· {{e.label}}</div>
         <radio-group class="radio-group" @change="radioChange">
-          <label class="radio" v-for="(choice, choiceKey, choiceIndex) in e.choices" :key="choiceIndex">
-            <radio :value="choice.name" :checked="choice.checked"/>{{choice.name}}
-          </label>
+          <div class="radioItem" v-for="(choice, choiceKey, choiceIndex) in e.choices" :key="choiceIndex">
+            <label>
+              <radio :value="choice.name" :checked="choice.checked"/>{{choice.name}}
+            </label>
+          </div>
         </radio-group>
       </div>
       <div v-else-if="e.type === 'multiple_choice'">
-        <div>复选框</div>
-        <checkbox-group @change="checkboxChange">
-          <label class="checkbox" v-for="(choice, choiceKey, choiceIndex) in e.choices" :key="choiceIndex">
+        <!-- <div>复选框</div> -->
+        <div class="inputQuestion">· {{e.label}}</div>
+        <!-- <checkbox-group class="checkbox-group" @change="checkboxChange">
+          <div class="checkbox" v-for="(choice, choiceKey, choiceIndex) in e.choices" :key="choiceIndex">
+            <label>
+              <radio :value="choice.name" :checked="choice.checked"/>{{choice.name}}
+            </label>
+          </div>
+        </checkbox-group> -->
+        <checkbox-group class="checkbox-group" bindchange="checkboxChange">
+          <label class="checkboxItem" v-for="(choice, choiceKey, choiceIndex) in e.choices" :key="choiceIndex">
             <checkbox :value="choice.name" :checked="choice.checked"/>{{choice.name}}
           </label>
         </checkbox-group>
       </div>
       <div v-else-if="e.type === 'paragraph_text'">
-        <textarea class="textareaStyle" name="" cols="30" rows="10"></textarea>
+        <div class="inputQuestion">· {{e.label}}</div>
+        <textarea class="textareaStyle" show-confirm-bar="false" cursor-spacing="50" auto-focus="true" maxlength="400"></textarea>
       </div>
     </div>
+    <button class="submitBtn">提交</button>
   </div>
 </template>
 
 <script>
-// import inputBox from '@/components/inputBox';
-
 export default {
   data() {
     return {
-      typeArr: [],
-      radios: [],
-      checkboxs: [],
       log: {
         name: "你的基本信息",
         description: "",
@@ -219,13 +228,63 @@ export default {
 </script>
 
 <style scoped>
-.textareaStyle {
-  border: 2rpx solid black;
+.title {
+  font-weight: bold;
+  font-size: 50rpx;
+  margin-bottom: 40rpx;
 }
-.inputStyle {
-  border-bottom: 2rpx solid black;
+.inputBox {
+  border: 2rpx solid rgb(195, 201, 208);
+  width: 492rpx;
+  margin-bottom: 10rpx;
+  padding: 0 12rpx;
+  font-size: 24rpx;
+}
+.inputQuestion {
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+  font-size: 30rpx;
+  color: rgb(34, 34, 34);
+  font-weight: bold;
 }
 .componentBox {
   margin-bottom: 20rpx;
+}
+.radio-group {
+  font-size: 24rpx;
+  margin-top: 20rpx;
+  margin-bottom: 10rpx;
+  font-weight: bold;
+}
+
+.radioItem {
+  display: block;
+  margin: 10rpx 0;
+}
+.checkbox-group {
+  font-size: 24rpx;
+  margin-top: 30rpx;
+  margin-bottom: 10rpx;
+  font-weight: bold;
+}
+.checkboxItem {
+  display: block;
+  margin: 10rpx 0;
+}
+.textareaStyle {
+  margin-top: 10rpx;
+  border: 2rpx solid rgb(195, 201, 208);
+  border-radius: 10rpx;
+  font-size: 30rpx;
+  padding: 10rpx;
+}
+.submitBtn {
+  height: 64rpx;
+  width: 276rpx;
+  padding: 0 110rpx;
+  font-size: 28rpx;
+  background-color: rgb(255, 133, 0);
+  color: white;
+  margin: 66rpx auto 30rpx auto;
 }
 </style>
