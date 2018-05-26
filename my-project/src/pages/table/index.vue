@@ -1,14 +1,12 @@
 <template>
   <div class="container">
-    <div class="title">{{log.name}}</div>
-    <div class="componentBox" v-for="(e, fieldKey, fieldIndex) in log.fields" :key="fieldIndex">
-      <!-- <div>{{e.type}}</div> -->
+    <div class="title">{{log1.name}}</div>
+    <div class="componentBox" v-for="(e, fieldKey, fieldIndex) in log1.fields" :key="fieldIndex">
       <div v-if="e.type === 'single_line_text'">
         <div class="inputQuestion">· {{e.label}}</div>
         <input class="inputBox" auto-focus/>
       </div>
       <div v-else-if="e.type === 'single_choice'">
-        <!-- <div>单选框</div> -->
         <div class="inputQuestion">· {{e.label}}</div>
         <radio-group class="radio-group" @change="radioChange">
           <div class="radioItem" v-for="(choice, choiceKey, choiceIndex) in e.choices" :key="choiceIndex">
@@ -19,15 +17,7 @@
         </radio-group>
       </div>
       <div v-else-if="e.type === 'multiple_choice'">
-        <!-- <div>复选框</div> -->
         <div class="inputQuestion">· {{e.label}}</div>
-        <!-- <checkbox-group class="checkbox-group" @change="checkboxChange">
-          <div class="checkbox" v-for="(choice, choiceKey, choiceIndex) in e.choices" :key="choiceIndex">
-            <label>
-              <radio :value="choice.name" :checked="choice.checked"/>{{choice.name}}
-            </label>
-          </div>
-        </checkbox-group> -->
         <checkbox-group class="checkbox-group" bindchange="checkboxChange">
           <label class="checkboxItem" v-for="(choice, choiceKey, choiceIndex) in e.choices" :key="choiceIndex">
             <checkbox :value="choice.name" :checked="choice.checked"/>{{choice.name}}
@@ -38,6 +28,39 @@
         <div class="inputQuestion">· {{e.label}}</div>
         <textarea class="textareaStyle" show-confirm-bar="false" cursor-spacing="50" auto-focus="true" maxlength="400"></textarea>
       </div>
+      <div v-else-if="e.type === 'drop_down'">
+        <div class="inputQuestion">· {{e.label}}</div>
+        <picker @change="bindPickerChange" :value="index" range-key="name" :range="e.choices">
+          <view class="picker">
+            当前选择：{{e.choices[index].name}}
+          </view>
+        </picker>
+      </div>
+      <div v-else-if="e.type === 'number'">
+        <div class="inputQuestion">· 数字</div>
+        <input class="inputBox" auto-focus/>
+      </div>
+      <div v-else-if="e.type === 'phone'">
+        <div class="inputQuestion">· 电话</div>
+        <input class="inputBox" auto-focus/>
+      </div>
+      <div v-else-if="e.type === 'email'">
+        <div class="inputQuestion">· 邮箱</div>
+        <input class="inputBox" auto-focus/>
+      </div>
+    </div>
+
+    <div>
+      <!-- <picker @change="bindPickerChange" :value="index" range-key="name" :range="log2.fields.field_2.choices">
+        <view class="picker">
+          当前选择：{{log2.fields.field_2.choices[index].name}}
+        </view>
+      </picker> -->
+      <!-- <picker :value="index" :range="arr" @change="bindPickerChange">
+          <view class="picker">
+            当前选择: {{arr[index].a}}
+          </view>
+      </picker> -->
     </div>
     <button class="submitBtn">提交</button>
   </div>
@@ -47,7 +70,8 @@
 export default {
   data() {
     return {
-      log: {
+      index: 0,
+      log1: {
         name: "你的基本信息",
         description: "",
         fields: [
@@ -186,6 +210,102 @@ export default {
               private: false,
               validation: {}
             }
+          },
+          {
+            field_14: {
+              label: "地区",
+              type: "drop_down",
+              notes: "",
+              private: false,
+              validation: {},
+              choices: [
+                { name: "哈尔滨", value: "t8g0", hidden: false },
+                { name: "大庆", value: "H4vA", hidden: false },
+                { name: "齐齐哈尔", value: "cr40", hidden: false },
+                { name: "牡丹江", value: "MiwG", hidden: false },
+                { name: "佳木斯", value: "q9IM", hidden: false },
+                { name: "黑河", value: "XmlA", hidden: false }
+              ],
+              allow_other: false
+            }
+          },
+          {
+            field_15: {
+              label: "数字",
+              type: "number",
+              notes: "",
+              private: false,
+              validation: {}
+            }
+          },
+          {
+            field_16: {
+              label: "电话",
+              type: "phone",
+              notes: "",
+              private: false,
+              validation: {}
+            }
+          },
+          {
+            field_17: {
+              label: "邮箱",
+              type: "email",
+              notes: "",
+              private: false,
+              validation: {}
+            }
+          }
+        ]
+      },
+      log2: {
+        name: "hh",
+        description: "还是",
+        fields: [
+          {
+            field_2: {
+              label: "地区",
+              type: "drop_down",
+              notes: "",
+              private: false,
+              validation: {},
+              choices: [
+                { name: "哈尔滨", value: "t8g0", hidden: false },
+                { name: "大庆", value: "H4vA", hidden: false },
+                { name: "齐齐哈尔", value: "cr40", hidden: false },
+                { name: "牡丹江", value: "MiwG", hidden: false },
+                { name: "佳木斯", value: "q9IM", hidden: false },
+                { name: "黑河", value: "XmlA", hidden: false }
+              ],
+              allow_other: false
+            }
+          },
+          {
+            field_3: {
+              label: "数字",
+              type: "number",
+              notes: "",
+              private: false,
+              validation: {}
+            }
+          },
+          {
+            field_4: {
+              label: "电话",
+              type: "phone",
+              notes: "",
+              private: false,
+              validation: {}
+            }
+          },
+          {
+            field_5: {
+              label: "邮箱",
+              type: "email",
+              notes: "",
+              private: false,
+              validation: {}
+            }
           }
         ]
       }
@@ -194,10 +314,19 @@ export default {
 
   components: {},
 
-  methods: {},
+  methods: {
+    bindPickerChange: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.mp.detail.value);
+    this.index = e.mp.detail.value;
+    // var currentId = this.log2.fields.field_2.choices[index].name; // 这个id就是选中项的id
+    // console.log(currentId);
+    // this.index = index;
+    
+  }
+  },
 
-  mounted() {
-    // const fields = this.log.fields;
+  created() {
+    // const fields = this.log1.fields;
     // for (const e of fields) {
     //   for (const key in e) {
     //     let type = e[key].type;
@@ -213,16 +342,26 @@ export default {
     //     this.typeArr.push({ type: type, label: label, choices: choices });
     //   }
     // }
-    // console.log(this.checkboxs);
-    // console.log(this.radios);
-    const trimedField = {};
-    const fields = this.log.fields;
-    for (const obj of fields) {
+    // console.log1(this.checkboxs);
+    // console.log1(this.radios);
+    const trimedField1 = {};
+    const fields1 = this.log1.fields;
+    for (const obj of fields1) {
       for (const subObjKey in obj) {
-        trimedField[subObjKey] = obj[subObjKey];
+        trimedField1[subObjKey] = obj[subObjKey];
       }
     }
-    this.log.fields = trimedField;
+    this.log1.fields = trimedField1;
+    const trimedField2 = {};
+    const fields2 = this.log2.fields;
+    for (const obj of fields2) {
+      for (const subObjKey in obj) {
+        trimedField2[subObjKey] = obj[subObjKey];
+      }
+    }
+    this.log2.fields = trimedField2;
+    console.log(this.log2.fields.field_2.choices);
+    console.log(this.log2.fields);
   }
 };
 </script>
@@ -277,6 +416,10 @@ export default {
   border-radius: 10rpx;
   font-size: 30rpx;
   padding: 10rpx;
+}
+.picker {
+  font-size: 24rpx;
+  margin-left: 50rpx;
 }
 .submitBtn {
   height: 64rpx;
