@@ -49,18 +49,7 @@
         <input class="inputBox" auto-focus/>
       </div>
     </div>
-
     <div>
-      <!-- <picker @change="bindPickerChange" :value="index" range-key="name" :range="log2.fields.field_2.choices">
-        <view class="picker">
-          当前选择：{{log2.fields.field_2.choices[index].name}}
-        </view>
-      </picker> -->
-      <!-- <picker :value="index" :range="arr" @change="bindPickerChange">
-          <view class="picker">
-            当前选择: {{arr[index].a}}
-          </view>
-      </picker> -->
     </div>
     <button class="submitBtn">提交</button>
   </div>
@@ -316,34 +305,11 @@ export default {
 
   methods: {
     bindPickerChange: function(e) {
-    // console.log('picker发送选择改变，携带值为', e.mp.detail.value);
-    this.index = e.mp.detail.value;
-    // var currentId = this.log2.fields.field_2.choices[index].name; // 这个id就是选中项的id
-    // console.log(currentId);
-    // this.index = index;
-    
-  }
+      this.index = e.mp.detail.value;
+    }
   },
 
   created() {
-    // const fields = this.log1.fields;
-    // for (const e of fields) {
-    //   for (const key in e) {
-    //     let type = e[key].type;
-    //     let label = e[key].label;
-    //     let choices = e[key].choices;
-    //     if(choices) {
-    //       if(type == 'multiple_choice') {
-    //         this.checkboxs.push(choices);
-    //       }else {
-    //         this.radios.push(choices);
-    //       }
-    //     }
-    //     this.typeArr.push({ type: type, label: label, choices: choices });
-    //   }
-    // }
-    // console.log1(this.checkboxs);
-    // console.log1(this.radios);
     const trimedField1 = {};
     const fields1 = this.log1.fields;
     for (const obj of fields1) {
