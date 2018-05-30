@@ -1,6 +1,8 @@
 <template>
   <div class="container">
     <div>表单head</div>
+    <span>请输入表单名字</span>
+    <input v-model="tableName" type="text" @input="tableNameChange">
     <button class="save" @click="saveTable">
       保存并下一步
     </button>
@@ -8,18 +10,25 @@
 </template>
 
 <script>
-
+import store from "@/store";
 export default {
   data () {
     return {
+      tableName: ''
     }
   },
 
   methods: {
     saveTable() {
+      
       wx.navigateTo({
         url: "../tableBody/main"
       });
+    },
+    tableNameChange() {
+      // console.log(this.tableName);
+      store.commit('formNameChange', this.tableName);
+      console.log(store.state.form.name);
     }
   },
 
