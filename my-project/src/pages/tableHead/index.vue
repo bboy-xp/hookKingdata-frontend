@@ -28,7 +28,7 @@ export default {
     tableNameChange() {
       // console.log(this.tableName);
       store.commit('formNameChange', this.tableName);
-      console.log(store.state.form.name);
+      // console.log(store.state.form.name);
     }
   },
 

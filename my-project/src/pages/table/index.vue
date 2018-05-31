@@ -326,8 +326,8 @@ export default {
       }
     }
     this.log2.fields = trimedField2;
-    console.log(this.log2.fields.field_2.choices);
-    console.log(this.log2.fields);
+    // console.log(this.log2.fields.field_2.choices);
+    // console.log(this.log2.fields);
   }
 };
 </script>

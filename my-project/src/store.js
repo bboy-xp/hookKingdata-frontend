@@ -15,27 +15,26 @@ const store = new Vuex.Store({
     
   },
   getters: {
-    // showInput(state) {
-    //   console.log('触发 showInput() getters');
-    //   const findResult = state.checkResult.find((e) => {
-    //     if (e === 'reason4') {
-    //       return e;
-    //     }
-    //   });
-
-    //   return findResult ? true : false;
-    // }
   },
   mutations: {
     formNameChange: (state, payload) => {
       state.form.name = payload;
     },
     felidsChange: (state, payload) => {
-      // state.form.felids = state.form.felids.push(payload);
+      state.form.felids.push(payload);
     }
   },
   actions: {
-    
+    async submit({ state }) {
+      const data = {
+        name: state.form.name,
+        felids: state.form.felids
+      }
+      console.log(data);
+      const result = await fly.post('http://127.0.0.1:7001/postTableData',data);
+      console.log(result);
+      
+    }
   }
 })
 
