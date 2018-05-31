@@ -38,22 +38,22 @@ export default {
       elementName: '',
       index: 0,
       choices: [
-        { name: "单行文本",  hidden: false },
-        { name: "多行文本",  hidden: false },
-        { name: "单项选择",  hidden: false },
-        { name: "多项选择",  hidden: false },
-        { name: "数字",  hidden: false },
-        { name: "手机", hidden: false },
-        { name: "日期", hidden: false },
-        { name: "下拉框", hidden: false },
-        { name: "地理位置", hidden: false },
-        { name: "评分", hidden: false },
-        { name: "上传文件", hidden: false },
+        { name: "单行文本", value: "single_line_text",  hidden: false },
+        { name: "多行文本", value: "paragraph_text",  hidden: false },
+        { name: "单项选择", value: "single_choice",  hidden: false },
+        { name: "多项选择", value: "multiple_choice",  hidden: false },
+        { name: "数字", value: "",  hidden: false },
+        { name: "手机", value: "", hidden: false },
+        { name: "日期", value: "", hidden: false },
+        { name: "下拉框", value: "", hidden: false },
+        { name: "地理位置", value: "", hidden: false },
+        { name: "评分", value: "", hidden: false },
+        { name: "上传文件", value: "", hidden: false },
       ],
       options: [
-        { name: "选项", value: '' },
-        { name: "选项", value: '' },
-        { name: "选项", value: '' },
+        { name: "option", value: '' },
+        { name: "option", value: '' },
+        { name: "option", value: '' },
       ],
       optionType: '单行文本',
       show: false,
@@ -81,10 +81,18 @@ export default {
       console.log(this.options);
     },
     addOption() {
-      this.options.push({ name: "选项", value: '' })
+      this.options.push({ name: "option", value: '' })
     },
     saveElement() {
-      console.log(this.elementName);
+      let elementData = {};
+      elementData.label = this.elementName;
+      if (this.show) {
+        // console.log('ok');
+        elementData.choices = this.options; 
+      }
+      console.log(elementData);
+      // store.commit('felidsChange', elementData);
+      // console.log(store.state.form);
     },
     changeOption(payload) {
       // console.log(payload.e.target.value);

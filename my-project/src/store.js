@@ -10,7 +10,7 @@ const store = new Vuex.Store({
   state: {
     form: {
       name:'',
-
+      felids: [],
     },
     
   },
@@ -30,6 +30,9 @@ const store = new Vuex.Store({
     formNameChange: (state, payload) => {
       state.form.name = payload;
     },
+    felidsChange: (state, payload) => {
+      // state.form.felids = state.form.felids.push(payload);
+    }
   },
   actions: {
     
