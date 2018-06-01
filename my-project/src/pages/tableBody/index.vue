@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <div class="element" v-for="felid in felids" :key="felid">
+    <div class="element" v-for="felid in fields" :key="felid">
       <span>{{felid.label}}({{felid.type}})</span>
     </div>
     <div @click="addElement">
       添加字段
     </div>
-    <div @click="saveTable" class="save">保存表单</div>
+    <div @click="saveTable" class="save">保存并查看表单</div>
   </div>
 </template>
 
@@ -16,13 +16,13 @@ export default {
   data () {
     return {
       tableData: {},
-      felids: {},
+      fields: {},
     }
   },
 
   methods: {
     addElement() {
-      wx.navigateTo({
+      wx.redirectTo({
         url: "../selectElement/main"
       });
     },
@@ -34,7 +34,7 @@ export default {
   mounted () {
     console.log(store.state.form);
     this.tableData = store.state.form;
-    this.felids = store.state.form.felids;
+    this.fields = store.state.form.fields;
   }
 }
 </script>

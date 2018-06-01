@@ -9,10 +9,10 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     form: {
-      name:'',
-      felids: [],
+      name: '',
+      fields: [],
     },
-    
+
   },
   getters: {
   },
@@ -20,20 +20,31 @@ const store = new Vuex.Store({
     formNameChange: (state, payload) => {
       state.form.name = payload;
     },
-    felidsChange: (state, payload) => {
-      state.form.felids.push(payload);
+    fieldsChange: (state, payload) => {
+      state.form.fields.push(payload);
     }
   },
   actions: {
     async submit({ state }) {
       const data = {
         name: state.form.name,
-        felids: state.form.felids
+        fields: state.form.fields
       }
       console.log(data);
-      const result = await fly.post('http://127.0.0.1:7001/postTableData',data);
-      console.log(result);
-      
+      const result = await fly.post('http://127.0.0.1:7001/postTableData', data);
+      // console.log(result);
+      if (result.data == 'ok') {
+        wx.showModal({
+          title: '提示',
+          content: '提交成功',
+          showCancel: false,
+          success: function (res) {
+            wx.redirectTo({
+              url: '../table/main'
+            });
+          }
+        });
+      }
     }
   }
 })

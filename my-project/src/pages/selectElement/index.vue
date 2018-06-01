@@ -92,7 +92,7 @@ export default {
         elementData.choices = this.options; 
       }
       // console.log(elementData);
-      store.commit('felidsChange', elementData);
+      store.commit('fieldsChange', elementData);
       this.options = [
         { name: "option", value: '' },
         { name: "option", value: '' },
