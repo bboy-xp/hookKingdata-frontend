@@ -30,11 +30,17 @@
       </div>
       <div v-else-if="e.type === 'drop_down'">
         <div class="inputQuestion">· {{e.label}}</div>
-        <picker @change="bindPickerChange" :value="index" range-key="name" :range="e.choices">
+        <!-- <picker mode="selector" @change="bindPickerChange" :value="index" range-key="value" :range="e.choices">
           <view class="picker">
-            当前选择：{{e.choices[index].name}}
+            当前选择：{{e.choices[index].value}}
           </view>
-        </picker>
+        </picker> -->
+        <!-- <div class="mpvue-picer">
+          <mpvue-picker mode="selector" ref="mpvuePicker1" :pickerValueArray="e.choices" @onConfirm="pickerConfirm1"></mpvue-picker>
+          <view class="picker" @click="showPicker1">
+            当前选择：{{e.choices[index[0]].value}}
+          </view>
+        </div> -->
       </div>
       <div v-else-if="e.type === 'number'">
         <div class="inputQuestion">· 数字</div>
@@ -50,12 +56,10 @@
       </div>
       <div v-else-if="e.type === 'double_drop_down'">
         <div class="mpvue-picer">
-          <button @click="showPicker">Press</button>
-          <mpvue-picker mode="multiLinkageSelector" ref="mpvuePicker" :pickerValueArray="e.choices" @pickerConfirm="pickerConfirm"></mpvue-picker>
-        </div>
-        <div class="mpvue-picer">
-          <button @click="showPicker1">Press</button>
-          <mpvue-picker mode="multiLinkageSelector" ref="mpvuePicker1" :pickerValueArray="pickerValueArray" @pickerConfirm="pickerConfirm"></mpvue-picker>
+          <mpvue-picker mode="multiLinkageSelector" ref="mpvuePicker2" :pickerValueArray="e.choices" @onConfirm="pickerConfirm2"></mpvue-picker>
+          <view class="picker" @click="showPicker2">
+            当前选择：{{e.choices[double_index[0]].label}} - {{e.choices[double_index[0]].children[double_index[1]].label}}
+          </view>
         </div>
       </div>
     </div>
@@ -76,60 +80,19 @@ export default {
     return {
       index: 0,
       log1: {},
-      // pickerValueArray: [
-      //   {
-      //     label: "飞机票",
-      //     children: [
-      //       {
-      //         label: "经济舱",
-      //       },
-      //       {
-      //         label: "商务舱",
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     label: "火车票",
-      //     children: [
-      //       {
-      //         label: "卧铺",
-      //       },
-      //       {
-      //         label: "坐票",
-      //       },
-      //       {
-      //         label: "站票",
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     label: "汽车票",
-      //     children: [
-      //       {
-      //         label: "快班",
-      //       },
-      //       {
-      //         label: "普通",
-      //       }
-      //     ]
-      //   }
-      // ],
+      double_index: [0,0],
     };
   },
   methods: {
     bindPickerChange: function(e) {
       this.index = e.mp.detail.value;
     },
-    showPicker() {
-      // this.$refs.mpvuePicker.show();
-      // console.log(this.$refs.mpvuePicker);
-      // console.log(this.$refs.mpvuePicker[0].show);
-      this.$refs.mpvuePicker[0].show();
+    showPicker2() {
+      this.$refs.mpvuePicker2[0].show();
     },
-    // showPicker1() {
-    //   console.log(this.$refs);
-    //   this.$refs.mpvuePicker1[0].show();
-    // }
+    pickerConfirm2(e) {
+      this.double_index = e;
+    }
   },
   mounted() {
   },
