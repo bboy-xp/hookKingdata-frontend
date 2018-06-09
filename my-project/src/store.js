@@ -31,20 +31,29 @@ const store = new Vuex.Store({
         fields: state.form.fields
       }
       console.log(data);
-      const result = await fly.post('http://127.0.0.1:7001/postTableData', data);
-      // console.log(result);
-      if (result.data == 'ok') {
-        wx.showModal({
-          title: '提示',
-          content: '提交成功',
-          showCancel: false,
-          success: function (res) {
-            wx.redirectTo({
-              url: '../table/main'
-            });
-          }
-        });
-      }
+      // const result = await fly.post('http://127.0.0.1:7001/postTableData', data);
+      // if (result.data == 'ok') {
+      //   wx.showModal({
+      //     title: '提示',
+      //     content: '提交成功',
+      //     showCancel: false,
+      //     success: function (res) {
+      //       wx.redirectTo({
+      //         url: '../table/main'
+      //       });
+      //     }
+      //   });
+      // }
+      wx.showModal({
+        title: '提示',
+        content: '提交成功',
+        showCancel: false,
+        success: function (res) {
+          wx.redirectTo({
+            url: '../table/main'
+          });
+        }
+      });
     }
   }
 })

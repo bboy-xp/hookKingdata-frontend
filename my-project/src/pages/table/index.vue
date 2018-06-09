@@ -30,13 +30,13 @@
       </div>
       <div v-else-if="e.type === 'drop_down'">
         <div class="inputQuestion">· {{e.label}}</div>
-        <!-- <picker mode="selector" @change="bindPickerChange" :value="index" range-key="value" :range="e.choices">
+        <picker mode="selector" @change="bindPickerChange" :value="index" range-key="value" :range="e.choices">
           <view class="picker">
             当前选择：{{e.choices[index].value}}
           </view>
-        </picker> -->
+        </picker>
         <!-- <div class="mpvue-picer">
-          <mpvue-picker mode="selector" ref="mpvuePicker1" :pickerValueArray="e.choices" @onConfirm="pickerConfirm1"></mpvue-picker>
+          <mpvue-picker mode="selector" ref="mpvuePicker1" range-key="value" :pickerValueArray="e.choices" @onConfirm="pickerConfirm1"></mpvue-picker>
           <view class="picker" @click="showPicker1">
             当前选择：{{e.choices[index[0]].value}}
           </view>
@@ -87,12 +87,18 @@ export default {
     bindPickerChange: function(e) {
       this.index = e.mp.detail.value;
     },
+    // showPicker1() {
+    //   this.$refs.mpvuePicker1[0].show();
+    // },
     showPicker2() {
       this.$refs.mpvuePicker2[0].show();
     },
     pickerConfirm2(e) {
       this.double_index = e;
-    }
+    },
+    // pickerConfirm1(e) {
+    //   this.index = e;
+    // }
   },
   mounted() {
   },
