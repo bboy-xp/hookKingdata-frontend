@@ -1,6 +1,8 @@
 <template>
   <div class="container">
     <div @click="createTable">创建表单</div>
+    
+    <button class="btn" @click="chooseImg">选择图片</button>
   </div>
 </template>
 
@@ -11,7 +13,9 @@ export default {
     mpvuePicker
   },
   data() {
-    return {};
+    return {
+      
+    };
   },
 
   methods: {
@@ -19,12 +23,14 @@ export default {
       wx.navigateTo({
         url: "../tableHead/main"
       });
-    }
+    },
+    
   },
   mounted() {
     wx.authorize({
       scope: "scope.userLocation",
       success() {
+        
         // console.log('授权成功');
         // wx.getLocation({
         //   type: "gcj02 ",
@@ -41,19 +47,18 @@ export default {
         //     console.log(res);
         //   }
         // })
-
-        wx.getLocation({
-          type: "gcj02", //返回可以用于wx.openLocation的经纬度
-          success: function(res) {
-            var latitude = res.latitude;
-            var longitude = res.longitude;
-            wx.openLocation({
-              latitude: latitude,
-              longitude: longitude,
-              scale: 28
-            });
-          }
-        });
+        // wx.getLocation({
+        //   type: "gcj02", //返回可以用于wx.openLocation的经纬度
+        //   success: function(res) {
+        //     var latitude = res.latitude;
+        //     var longitude = res.longitude;
+        //     wx.openLocation({
+        //       latitude: latitude,
+        //       longitude: longitude,
+        //       scale: 28
+        //     });
+        //   }
+        // });
       }
     });
   }
@@ -61,4 +66,12 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  overflow: scroll;
+}
+.btn {
+  height: 60rpx;
+  width: 200rpx;
+  line-height: 60rpx;
+}
 </style>

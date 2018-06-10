@@ -62,6 +62,16 @@
           </view>
         </div>
       </div>
+      <div v-else-if="e.type === 'position'">
+        <div class="inputQuestion">· {{e.label}}</div>
+        <button @click="choosePosition">选择你的位置</button>
+      </div>
+      <div v-else-if="e.type === 'upload'">
+        <button class="btn" @click="chooseImg">选择图片</button>
+        <div v-for="(item , index) in tempFilePaths[0]" :key="index">
+          <img :src="tempFilePaths[0][index]" mode="aspectFit"/>
+        </div>
+      </div>
     </div>
     <div>
     </div>
@@ -71,7 +81,7 @@
 
 <script>
 import mpvuePicker from "mpvue-picker";
-import store from '@/store.js';
+import store from "@/store.js";
 export default {
   components: {
     mpvuePicker
@@ -80,7 +90,8 @@ export default {
     return {
       index: 0,
       log1: {},
-      double_index: [0,0],
+      double_index: [0, 0],
+      tempFilePaths: []
     };
   },
   methods: {
@@ -96,11 +107,75 @@ export default {
     pickerConfirm2(e) {
       this.double_index = e;
     },
+    choosePosition() {
+      wx.chooseLocation({
+        success(res) {
+          console.log(res);
+        }
+      });
+      // console.log("走到这里了1");
+      // 可以通过 wx.getSetting 先查询一下用户是否授权了 "scope.userLocation" 这个 scope
+      // wx.getSetting({
+      //   success(res) {
+      //     // console.log("走到这里了2");
+      //     if (!res.authSetting["scope.userLocation"]) {
+      //       wx.authorize({
+      //         scope: "scope.userLocation",
+      //         success() {
+      //           // console.log("走到这里了3");
+      //           // 用户已经同意小程序使用功能，后续调用接口不会弹窗询问
+      //           wx.userLocation({
+      //             success: function(res) {
+      //               console.log(res);
+      //             }
+      //           });
+      //         }
+      //       });
+      //     } else {
+      //       wx.userLocation({
+      //         success: function(res) {
+      //           console.log(res);
+      //         }
+      //       });
+      //     }
+      //   }
+      // });
+    },
+    chooseImg() {
+      const _this = this;
+      wx.chooseImage({
+        count: 3, // 默认9
+        sizeType: ["original", "compressed"], // 可以指定是原图还是压缩图，默认二者都有
+        sourceType: ["album", "camera"], // 可以指定来源是相册还是相机，默认二者都有
+        success: function(res) {
+          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+          _this.$set(_this.tempFilePaths, 0, res.tempFilePaths);
+          console.log(_this.tempFilePaths);
+          // wx.previewImage({
+          //   current: "",
+          //   urls: _this.tempFilePaths
+          // });
+        }
+      });
+    }
     // pickerConfirm1(e) {
     //   this.index = e;
     // }
   },
   mounted() {
+    wx.getSetting({
+      success(res) {
+        console.log(res);
+        if (!res.authSetting["scope.userLocation"]) {
+          wx.authorize({
+            scope: "scope.userLocation",
+            success() {
+              console.log("userLocation授权成功");
+            }
+          });
+        }
+      }
+    });
   },
   created() {
     this.log1 = store.state.form;
