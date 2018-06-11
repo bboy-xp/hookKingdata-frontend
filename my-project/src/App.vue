@@ -13,11 +13,11 @@ export default {
 
 <style>
 .container {
-  height: 100vh;
+  /* height: 100vh; */
   width: 100vw;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  /* align-items: flex-start; */
   justify-content: space-between;
   box-sizing: border-box;
   padding: 30rpx 50rpx;
